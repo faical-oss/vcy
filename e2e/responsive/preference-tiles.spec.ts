@@ -110,11 +110,11 @@ test("the tile label stays readable: white on the scrim, 4.5:1 even over a white
     const label = [...element.querySelectorAll("span")].find((span) => span.textContent === "Golf")!;
     return { scrim: getComputedStyle(scrim).backgroundImage, colour: getComputedStyle(label).color, size: getComputedStyle(label).fontSize };
   });
-  // Bottom of the scrim is black at 70% opacity: over pure white that is rgb(77,77,77) behind white text.
-  expect(result.scrim).toMatch(/0 0 0 \/ 0\.7\)|rgba\(0, 0, 0, 0\.7\)/);
+  // Bottom of the scrim is black at 80% opacity (50% halfway up): over pure white that is rgb(51,51,51) behind white text.
+  expect(result.scrim).toMatch(/0 0 0 \/ 0\.8\)|rgba\(0, 0, 0, 0\.8\)/);
   expect(result.colour).toBe("rgb(255, 255, 255)");
   const luminance = (value: number) => ((value /= 255) <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4);
-  const worst = 0.3 * 255; // white photo under 70% black
+  const worst = 0.2 * 255; // white photo under 80% black
   const ratio = 1.05 / (luminance(worst) + 0.05);
   expect(ratio, "contrast of the label over a white photo").toBeGreaterThanOrEqual(4.5);
 });
@@ -126,4 +126,26 @@ test("reduced motion: the tiles do not animate", async ({ page }) => {
     [...element.querySelectorAll("*")].map((child) => getComputedStyle(child).transitionProperty),
   );
   for (const value of durations) expect(value, "no transition under reduced motion").toBe("none");
+});
+
+test("the photos cause no layout shift (every tile has its 16:10 box before its image loads), and the placeholders are local WebP files", async ({ page }) => {
+  await page.addInitScript(() => {
+    (window as unknown as { __cls: number }).__cls = 0;
+    new PerformanceObserver((list) => {
+      for (const item of list.getEntries() as unknown as { hadRecentInput: boolean; value: number }[]) if (!item.hadRecentInput) (window as unknown as { __cls: number }).__cls += item.value;
+    }).observe({ type: "layout-shift", buffered: true });
+  });
+  await openStepOne(page);
+  // The page's own load (the streamed welcome band, the click on Edit) is not the photos' shift: count from here.
+  await page.waitForTimeout(600);
+  const before = await page.evaluate(() => (window as unknown as { __cls: number }).__cls);
+  const group = page.getByRole("group", { name: "Select all that apply" });
+  // The photos are lazy: scroll through every tile so each one loads.
+  for (const label of await group.locator("label").all()) await label.scrollIntoViewIfNeeded();
+  await page.waitForFunction(() => [...document.querySelectorAll('[aria-labelledby="wizard-select-label"] img')].every((image) => (image as HTMLImageElement).complete && (image as HTMLImageElement).naturalWidth > 0), undefined, { timeout: 15_000 });
+  await page.waitForTimeout(500);
+  expect((await page.evaluate(() => (window as unknown as { __cls: number }).__cls)) - before, "layout shift while the photos load").toBeLessThan(0.01);
+  const sources = await group.locator("img").evaluateAll((images) => images.map((image) => (image as HTMLImageElement).currentSrc));
+  expect(sources.length, "20 photos").toBe(20);
+  for (const source of sources) expect(new URL(source).origin, "no image is loaded from another site").toBe(new URL(page.url()).origin);
 });

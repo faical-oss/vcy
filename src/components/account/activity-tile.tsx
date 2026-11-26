@@ -15,7 +15,7 @@ interface ActivityTileProps {
  * One photo tile you pick, in the wizard's activity step. A native checkbox inside a label, so Space toggles it, the label is
  * its name, and the whole tile is the tap target. The checkbox is visually hidden: the tile draws the states. Selected = gold
  * ring plus a check badge (never colour alone); keyboard focus = a second, offset ring. The label sits on a dark scrim at the
- * bottom, so white text keeps 4.5:1 even over a white photo (worst case about 8:1). `touch-manipulation` removes the double-tap
+ * bottom, so white text keeps 4.5:1 even over a white photo (worst case over the 20 placeholder photos 5.2:1, two-line label on the smallest tile). `touch-manipulation` removes the double-tap
  * zoom; `select-none` stops a scroll from selecting the text.
  */
 export function ActivityTile({ label, src, checked, onCheckedChange }: ActivityTileProps) {
@@ -32,7 +32,7 @@ export function ActivityTile({ label, src, checked, onCheckedChange }: ActivityT
           className="object-cover transition-transform duration-300 motion-safe:group-hover:scale-105 motion-reduce:transition-none"
         />
       ) : null}
-      <span aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent transition-colors group-hover:from-black/80 group-active:from-black/85 motion-reduce:transition-none" />
+      <span aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent transition-colors group-hover:from-black/85 group-active:from-black/90 motion-reduce:transition-none" />
       <span className="absolute inset-x-2 bottom-2.5 text-center text-sm font-semibold leading-tight text-white">{label}</span>
       <span
         aria-hidden

@@ -1,6 +1,6 @@
 # Account area
 
-Last updated: 2026-11-25
+Last updated: 2026-11-26
 
 ## Purpose
 The signed-in member area: overview, trips, favorites, travel preferences (a 5-step wizard) and profile. It runs on dev mock data behind a dev-only mock login.
@@ -20,8 +20,8 @@ A card with a 2-column grid (`AccountNav`, `max-md:grid`); the Favorites icon is
 - Step 1 ("What do you like to do on vacation?") is a grid of 20 photo tiles (`activity-tile.tsx`); the other four steps keep the pill `Chip`s. Same store, same ids, same values: `TravelPreferences.experiences` is unchanged.
 - Grid `PICK_GRID` in `src/constants/grids.ts`: 1 column below 400, 2 from 400, 3 from 768, 4 from 1024, 5 from 1280, one 12px gap, tiles 16:10.
 - A tile is a native checkbox inside a label (Space toggles, the label is the name, the whole tile is the tap target). Selected = gold ring plus a check badge; keyboard focus = an offset outline. The group is named by the "Select all that apply" line; the "N selected" count is `aria-live="polite"`. Transitions are off under `prefers-reduced-motion`.
-- The label is white on a bottom scrim of black at 70%: over a pure white photo that is 8.4:1 (limit 4.5:1), so light photos (Golf, Meditate, Detox) pass.
-- Photos: `ACTIVITY_IMAGES` in `src/constants/activity-images.ts` maps option id to a local path (`public/images/activities/`); no photo is supplied yet, so all 20 tiles show a neutral gradient. A tile with a path renders `next/image` (`sizes` = `PICK_GRID_SIZES`, lazy, empty alt).
+- The label is white on a bottom scrim (black at 80% at the bottom, 50% halfway up): over a pure white photo that is 12.6:1 at the bottom (limit 4.5:1). Measured over the 20 placeholder photos, the worst case (two-line label on the smallest tile, the brightest 1% of the label band) is 5.2:1 (Dive); with the first 70/25 scrim 11 of the 20 failed, so the scrim was darkened (Task 8b).
+- Photos: `ACTIVITY_IMAGES` in `src/constants/activity-images.ts` maps option id to a local WebP (`public/images/activities/`). The 20 files are RANDOM PLACEHOLDERS (picsum seeds, they do not match the labels; see `docs/activity-photo-credits.md`) to be replaced by the designer's photos before launch; a tile with no entry keeps the gradient.
 - The account shell's single column below `lg` is `minmax(0,1fr)`, so wide content can no longer stretch the page column.
 - Tests: `e2e/responsive/preference-tiles.spec.ts` (320 to 1920), `e2e/responsive/account-pages.spec.ts` (the five pages at 320 to 1024: column inside the viewport, no sideways scroll; the tab row's fades from 768 to 1023, where it still scrolls), `preferences-view.test.tsx`.
 
@@ -46,6 +46,7 @@ A card with a 2-column grid (`AccountNav`, `max-md:grid`); the Favorites icon is
 - Every "Explore experiences" and "Browse more" button here points to `/experiences`, which is not built (404).
 
 ## Changelog
+- 2026-11-26: The 20 preference tiles show random placeholder photos (dev only, WebP under 120 KB, local files, nothing hotlinked); `scripts/fetch-placeholder-activity-photos.mjs` fetched them once. Task 8b.
 - 2026-11-25: Below 768 the account menu is a 2-column card (Overview, My trips, Favorites with its count, Preferences, Profile, a divider, then Sign out on its own row; items 44px, uppercase, the active one light blue); from 768 the scrolling row and from 1024 the sidebar are unchanged. `chips.spec.ts` accepts the grid and checks the row's fades by scroll position.
 - 2026-11-25: Test only: the chip-row fade check follows the scroll position (a row scrolled to its end has no right fade); new `account-pages.spec.ts`.
 - 2026-11-25: Preferences wizard step 1 is a grid of 20 photo tiles (gradient until photos are added); the account shell column below `lg` is `minmax(0,1fr)`.

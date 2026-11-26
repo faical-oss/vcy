@@ -203,3 +203,5 @@ Built: `/`, `/support` (also serves "Contact us"), `/privacy`, `/terms`, `/accou
 - **Search tabs:** icon above the label below 400px, beside it from 400px.
 - **Account menu:** a 2-column card below 768.
 
+## TODO before launch: activity photos
+- The 20 preference tiles use RANDOM PLACEHOLDER photos (`public/images/activities/`, see `docs/activity-photo-credits.md`) that do not match the labels. Replace them with the designer's photos before launch (Task 8b).

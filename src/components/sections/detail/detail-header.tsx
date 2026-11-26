@@ -46,7 +46,8 @@ export function MetaItem({ icon, children }: { icon: ReactNode; children: ReactN
 export function DetailHeader({ breadcrumb, badges, title, subtitle, meta, actions }: { breadcrumb: ReactNode; badges: ReactNode; title: string; subtitle?: string; meta: ReactNode; actions: ReactNode }) {
   return (
     <header className="grid grid-cols-[minmax(0,1fr)] gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-start md:gap-x-4 md:gap-y-0">
-      <div className="min-w-0 md:col-start-1 md:row-start-1">{breadcrumb}</div>
+      {/* `relative z-10`: the links' padded tap area reaches into the next row, which would otherwise cover it. */}
+      <div className="relative z-10 min-w-0 md:col-start-1 md:row-start-1">{breadcrumb}</div>
       <div className="md:col-start-2 md:row-span-2 md:row-start-1">{actions}</div>
       <div className="flex min-w-0 flex-col gap-y-2 md:col-start-1 md:row-start-2 md:gap-y-0">
         <h1 className="break-words font-display text-title-sm font-medium text-primary md:order-2 md:mt-2 md:text-title-lg">{title}</h1>
