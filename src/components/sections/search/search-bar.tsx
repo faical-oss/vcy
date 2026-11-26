@@ -245,7 +245,7 @@ export function SearchBar({
     const shortName = isType ? FIELD_NAMES.type : FIELD_NAMES.destination;
     const Icon = isType ? Search : MapPin;
     return (
-      <div className={cn("relative", cellClass(index, variant))} onBlur={closeOnBlur(kind)}>
+      <div data-search-field className={cn("relative", cellClass(index, variant))} onBlur={closeOnBlur(kind)}>
         <label
           className={cn(FIELD, docked && "min-h-12 py-1.5", "cursor-text")}
         >

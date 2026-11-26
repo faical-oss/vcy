@@ -17,8 +17,8 @@ The rule that keeps this current is in CLAUDE.md ("Documentation definition of d
 | Catalog (shared data layer) | Built, mock service only | 2026-11-19 | [catalog.md](catalog.md) |
 | Navigation (header menus) | Built, mock data | 2026-11-25 | [navigation.md](navigation.md) |
 | Account area | Built, mock data and dev login | 2026-11-26 | [account.md](account.md) |
-| Auth (dev-only mock login) | Mock only | 2026-11-17 | [auth.md](auth.md) |
-| Search | Search box and results page built (mock data) | 2026-11-25 | [search.md](search.md) |
+| Auth (dev-only mock login) | Mock only | 2026-11-26 | [auth.md](auth.md) |
+| Search | Search box and results page built (mock data) | 2026-11-26 | [search.md](search.md) |
 | Static pages (Privacy, Terms, Support) | Built; Support form is a no-op | 2026-11-17 | [static-pages.md](static-pages.md) |
 | Responsive testing (Playwright) | Built; quick and full runs, baselines | 2026-11-25 | [responsive-testing.md](responsive-testing.md) |
 | SEO and caching foundation | Built; redirect map and CI pending | 2026-11-22 | [seo-and-caching.md](seo-and-caching.md) |

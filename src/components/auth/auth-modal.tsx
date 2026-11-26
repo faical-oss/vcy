@@ -208,7 +208,7 @@ export function AuthModal({ open, onOpenChange, mode, onModeChange, onCloseAutoF
                     resetForm();
                   }}
                   className={cn(
-                    "h-9 rounded-full px-4 text-xs font-semibold uppercase tracking-widest transition-colors",
+                    "h-9 min-w-0 whitespace-nowrap rounded-full px-1.5 text-[0.6875rem] font-semibold uppercase tracking-wide transition-colors sm:px-4 sm:text-xs sm:tracking-widest",
                     mode === tab ? "bg-card text-primary shadow-sm" : "text-body hover:text-primary",
                   )}
                 >

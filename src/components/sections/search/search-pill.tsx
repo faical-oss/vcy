@@ -42,11 +42,12 @@ function useVisibleBox(): { top: number; height: number } | null {
 function PillSheet({ content, onClose }: { content: SearchBoxContent; onClose: () => void }) {
   const box = useVisibleBox();
   const ref = useRef<HTMLDivElement>(null);
-  // A field that takes the focus (the keyboard comes up) is brought to the middle of the visible part of the sheet.
+  // Keep the focused field and its suggestions near the top of the visible sheet.
   const reveal = (event: FocusEvent<HTMLElement>) => {
     const target = event.target;
     if (!(target instanceof HTMLElement) || !target.closest("[data-sheet-body]")) return;
-    window.setTimeout(() => target.scrollIntoView({ block: "center", behavior: "smooth" }), 250);
+    const field = target.closest("[data-search-field]") ?? target;
+    window.setTimeout(() => field.scrollIntoView({ block: "start", behavior: "smooth" }), 300);
   };
   return (
     <Dialog.Portal>

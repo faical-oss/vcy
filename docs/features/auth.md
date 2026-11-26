@@ -1,6 +1,6 @@
 # Auth (dev-only mock login)
 
-Last updated: 2026-11-17
+Last updated: 2026-11-26
 
 ## Purpose
 A two-step sign-in dialog (email, then password; Google, Apple and Facebook sign in immediately) backed by a fake session. It exists so the header and the account area can be built; there is no real authentication.
@@ -31,5 +31,6 @@ A two-step sign-in dialog (email, then password; Google, Apple and Facebook sign
 - The social buttons only flip the mock session.
 
 ## Changelog
+- 2026-11-26: Keep the account mode tabs on one line on narrow mobile screens.
 - 2026-11-17: Doc created, backfilled from the source. Sign-out and redirects use `ROUTES.home`.
 - 2026-11-12: Mock auth, its production guard and `src/features/auth` created (file-system date). History before this date not documented (no git history).
