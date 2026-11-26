@@ -1,0 +1,4 @@
+#!/bin/sh
+# Optional git hook: runs the docs change check with the commit message being written, so "docs: none" works.
+# Install once (per clone):  git config core.hooksPath scripts/hooks
+exec node scripts/docs-check.mjs --message-file "$1"

@@ -1,0 +1,54 @@
+{
+  "name": "vku-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "prebuild": "vitest run src/features/seo/redirect-map.test.ts",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "vitest run --config vitest.e2e.config.mts",
+    "test:watch": "vitest",
+    "lint:fix": "eslint --fix",
+    "docs:check": "node scripts/docs-check.mjs",
+    "test:responsive": "playwright test",
+    "test:responsive:full": "npm run build && PW_MODE=prod PW_SET=full playwright test",
+    "test:responsive:baseline": "PW_MODE=prod PW_SET=quick playwright test baselines.spec.ts --update-snapshots",
+    "test:responsive:report": "node scripts/responsive-summary.mjs"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.3.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.71.0",
+    "next": "16.4.6",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "server-only": "^0.0.1",
+    "tailwind-merge": "^3.7.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.65.1",
+    "@tailwindcss/turbopack": "4.3.3",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.10",
+    "@types/node": "^22.20.5",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.6",
+    "jsdom": "^31.0.0",
+    "tailwindcss": "4.3.3",
+    "typescript": "^5",
+    "vitest": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

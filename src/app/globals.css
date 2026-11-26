@@ -1,0 +1,288 @@
+@import "tailwindcss";
+
+/*
+ * Vacayou design tokens. Source: Figma "Palette & Styles" + Home frame.
+ * Everything visual is a variable: components use the generated utilities
+ * (bg-primary, text-body, font-display, rounded-card, ...) and never raw hex.
+ * When the shared white-label theme lands, swap values here only.
+ */
+@theme {
+  /* Colors */
+  --color-primary: #002c36;        /* deep teal navy: headings, dark surfaces */
+  --color-primary-foreground: #ffffff;
+  --color-accent: #c49a6c;         /* warm gold: primary CTA */
+  --color-accent-foreground: #ffffff;
+  --color-accent-hover: #b8885b;   /* primary CTA hover */
+  --color-muted-blue: #a7bcc1;     /* eyebrows, ornaments, dividers on dark */
+  --color-surface: #f9f9f7;        /* page sections */
+  --color-surface-blue: #e9f1fb;   /* alternate sections, newsletter */
+  --color-card: #ffffff;
+  --color-body: #616161;           /* paragraph text */
+  --color-border: #e0e0e0;
+  --color-border-strong: #757575;  /* card hover border */
+  --color-star: #ffc107;
+  --color-card-border: #d0d0d0;    /* testimonial card border */
+  --color-divider: #f0f0f0;        /* hairlines inside cards */
+  --color-divider-dark: #49454f;   /* hairline above the footer legal row */
+  --color-quote: #444444;          /* testimonial quote text */
+  --color-muted: #767676;          /* secondary captions */
+  --color-avatar: #e8e8e8;
+  --color-avatar-border: #c8c8c8;
+  --color-border-soft: #d9e8e5;    /* hairline under pale-blue page heroes */
+  --color-scrim: rgb(0 0 0 / 0.6); /* modal backdrop */
+  --color-error: #b3261e;          /* field validation text and border */
+  --color-success: #2e7d32;        /* positive status dots (e.g. connected account); 5.1:1 on white */
+  --color-brand-google: #4285f4;
+  --color-brand-facebook: #1877f2;
+  --color-overlay: rgb(0 0 0 / 0.4);
+
+  /* Fonts (wired in src/app/fonts.ts) */
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-albert), "Albert Sans", system-ui, sans-serif;
+
+  /* Type scale (size / line-height / letter-spacing) */
+  --text-display: 3.75rem;
+  --text-display--line-height: 1;
+  --text-title-lg: 2.75rem;
+  --text-title-lg--line-height: 1.02;
+  --text-title-lg--letter-spacing: -0.015em;
+  --text-display-sm: 3.5rem;       /* 56px: support/legal hero */
+  --text-display-sm--line-height: 1;
+  --text-display-sm--letter-spacing: -0.00893em;
+  --text-account-title: 2.625rem;  /* 42px: account welcome title */
+  --text-account-title--line-height: 1;
+  --text-account-title--letter-spacing: -0.0095em;
+  --text-title: 2.25rem;
+  --text-title--line-height: 1.1111;
+  --text-title--letter-spacing: -0.01833em;
+  --text-heading: 2.125rem;        /* 34px: page section headings */
+  --text-heading--line-height: 1.5;
+  --text-heading-sm: 1.875rem;     /* 30px: form card heading */
+  --text-heading-sm--line-height: 1.5;
+  --text-listing-title: 2.625rem;  /* 42px: category page hero title (46px line, -0.66px tracking) */
+  --text-listing-title--line-height: 1.0952;
+  --text-listing-title--letter-spacing: -0.0157em;
+  --text-destination-title: 3rem;  /* 48px: destination page hero title (52px line, normal tracking) */
+  --text-destination-title--line-height: 1.0833;
+  --text-title-md: 2rem;           /* 32px: modal title */
+  --text-title-md--line-height: 1.125;
+  --text-heading-xs: 1.75rem;      /* 28px: account section headings on mobile */
+  --text-heading-xs--line-height: 1.2;
+  --text-stat: 1.75rem;            /* 28px: account stat numbers */
+  --text-stat--line-height: 1;
+  --text-stat-lg: 2.375rem;        /* 38px: account stat numbers from sm */
+  --text-stat-lg--line-height: 1;
+  --text-title-sm: 1.5rem;
+  --text-title-sm--line-height: 1.25;
+  --text-title-xs: 1.625rem;       /* 26px: sidebar card headings */
+  --text-title-xs--line-height: 1.5;
+  --text-eyebrow: 0.8125rem;
+  --text-eyebrow--line-height: 1.5;
+  --text-eyebrow--letter-spacing: 0.1em;
+  --text-caption: 0.6875rem;       /* 11px: ratings, price captions */
+  --text-caption--line-height: 1.5;
+  --text-chip: 0.8125rem;          /* filter chips: 13px, 1.1px tracking */
+  --text-chip--line-height: 1.5;
+  --text-chip--letter-spacing: 0.0846em;
+  --tracking-cta: 0.0929em;        /* 14px primary CTA, 1.3px tracking */
+  --tracking-caption: 0.11em;      /* 10px divider caption, 1.1px tracking */
+  --tracking-label: 0.0833em;      /* 12px form labels, 1px tracking */
+  --tracking-eyebrow-lg: 0.1167em; /* 12px hero eyebrow, 1.4px tracking */
+  --text-nano: 0.5625rem;          /* 9px: compact stat labels on mobile */
+  --text-nano--line-height: 1.25;
+  --text-pico: 0.5rem;             /* 8px: tier progress labels */
+  --text-pico--line-height: 1.25;
+  --tracking-nav: 0.0667em;        /* 12px nav labels on mobile, 0.8px */
+  --tracking-micro: 0.0889em;      /* 9px stat labels, 0.8px */
+  --text-micro: 0.625rem;
+  --text-micro--line-height: 1.5;
+
+  /* Radii */
+  --radius-input: 4px;
+  --radius-field: 2px;             /* support form fields */
+  --radius-card: 8px;
+  --radius-panel: 16px;
+
+  /* Shadows */
+  --shadow-header: 0 2px 5px rgb(0 0 0 / 0.08);
+  --shadow-card: 0 1px 1.5px rgb(0 0 0 / 0.1), 0 1px 1px rgb(0 0 0 / 0.1);
+
+  /* Motion */
+  --animate-marquee: marquee 40s linear infinite;
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* The search sheet: slides down from under the navbar on a phone (and back up), fades in the centre from md. Overlay fades. */
+  --animate-sheet-in: sheet-in 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-sheet-out: sheet-out 180ms cubic-bezier(0.4, 0, 1, 1) forwards;
+  --animate-fade-in: fade-in 200ms ease-out;
+  --animate-fade-out: fade-out 160ms ease-in forwards;
+  @keyframes sheet-in {
+    from {
+      transform: translateY(-1.5rem);
+      opacity: 0;
+    }
+  }
+  @keyframes sheet-out {
+    to {
+      transform: translateY(-1.5rem);
+      opacity: 0;
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes fade-out {
+    to {
+      opacity: 0;
+    }
+  }
+
+  /* Layout */
+  --spacing-header: 4rem;
+  --container-site: 80rem; /* 1280px */
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-card);
+    color: var(--color-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    /* Landscape on a phone with a notch: keep the page out of the side cutouts (viewport-fit=cover). Zero elsewhere. */
+    padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/*
+ * Touch targets: on touch screens (coarse pointer) every button and icon link answers taps in at least a 44x44 box, centred on
+ * the control, without changing how it looks (an invisible ::after). The image dots are left out: they sit 20px apart and swiping
+ * is the way to move through the images. Text links inside a sentence keep their own size.
+ */
+@media (pointer: coarse) {
+  :is(button, [role="button"], [role="tab"], a[aria-label], a:where(.inline-flex, .flex, .inline-block, .block, .shrink-0, .border-b)):not([aria-label^="Go to image"]):where(:not(.absolute, .fixed, .sticky, .relative)) {
+    position: relative;
+  }
+  /* A <select> cannot hold a ::after, so it is really 44px tall on touch screens. */
+  select {
+    min-height: 44px;
+  }
+  :is(button, [role="button"], [role="tab"], a[aria-label], a:where(.inline-flex, .flex, .inline-block, .block, .shrink-0, .border-b)):not([aria-label^="Go to image"])::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
+}
+
+/*
+ * The detail pages' fixed booking bar (below lg) is at least 5rem high plus the bottom safe area; with rooms chosen (hotels) it is as tall as
+ * its list. `MobileBookingBar` measures it and sets `--booking-bar-h` on <html>; this is the value before that runs. The page's spacer and the
+ * footer take it as extra room, so the bar never covers the last line of either.
+ */
+:root {
+  --booking-bar-h: calc(5rem + env(safe-area-inset-bottom));
+}
+@media (max-width: 63.99rem) {
+  /* The site footer only: a dialog's own <footer> (the room details) must not get the spacer. */
+  body:has([data-booking-bar]) footer[data-site-footer]::after {
+    content: "";
+    display: block;
+    height: var(--booking-bar-h);
+  }
+}
+
+@layer utilities {
+  /* Horizontal scroller without a visible scrollbar (carousels). */
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Height of the docked search bar while it shows (DockedSearch sets data-docked-search on <html>). Sticky bars under the header add it to their `top` (the Lifestyle sub-nav, the detail pages tabs and booking box). The bar is there at every width: a pill below xl, a row from xl, both 4rem. */
+:root {
+  --docked-search-h: 0px;
+}
+:root[data-docked-search] {
+  --docked-search-h: 4rem;
+}
+
+/* The two thumbs of the price range slider: two range inputs stacked, only the thumbs take the pointer. */
+.dual-range {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1.25rem;
+  margin: 0;
+  appearance: none;
+  background: transparent;
+  pointer-events: none;
+}
+.dual-range::-webkit-slider-thumb {
+  appearance: none;
+  pointer-events: auto;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 9999px;
+  border: 2px solid var(--color-primary);
+  background: var(--color-card);
+  cursor: pointer;
+}
+.dual-range::-moz-range-thumb {
+  pointer-events: auto;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 9999px;
+  border: 2px solid var(--color-primary);
+  background: var(--color-card);
+  cursor: pointer;
+}
+.dual-range:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+.dual-range:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Touch screens: a taller slider with bigger thumbs (44px to grab, 28px to see). */
+@media (pointer: coarse) {
+  .dual-range {
+    height: 2.75rem;
+  }
+  .dual-range::-webkit-slider-thumb {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+  .dual-range::-moz-range-thumb {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+}
